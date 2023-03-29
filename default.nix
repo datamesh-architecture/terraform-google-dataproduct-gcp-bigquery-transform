@@ -6,6 +6,7 @@ pkgs.mkShell {
     pkgs.terraform-docs
     pkgs.tflint
     pkgs.tfsec
+    pkgs.google-cloud-sdk
   ];
 
  shellHook = ''
