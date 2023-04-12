@@ -11,8 +11,9 @@ resource "google_bigquery_dataset" "dataset" {
 
 resource "google_bigquery_table" "default" {
   dataset_id = google_bigquery_dataset.dataset.dataset_id
-  table_id   = "view-dataproduct-${var.name}-${var.name}"
+  table_id   = "view-dataproduct-${var.name}"
   view       {
-        query = "SELECT * FROM ${var.source_table}"
+        query = file("${path.cwd}/${var.transform.query}")
+        use_legacy_sql = false
   }
 }
