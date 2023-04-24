@@ -9,7 +9,7 @@ resource "google_bigquery_dataset" "dataset" {
   default_table_expiration_ms = 3600000
 }
 
-resource "google_bigquery_table" "default" {
+resource "google_bigquery_table" "view-dataproduct" {
   dataset_id = google_bigquery_dataset.dataset.dataset_id
   table_id   = "view-dataproduct-${var.name}"
   view       {
