@@ -5,8 +5,25 @@ This open source Terraform module provisions the necessary services to provide a
 ![Overview](https://www.datamesh-architecture.com/images/google-cloud-bigquery.png)
 
 ## Services
+* Google BigQuery
+* Google Cloud Functions
 
 ## Usage
+```
+module "bigquery_datenprodukt" {
+    source = "git@github.com:datamesh-architecture/terraform-dataproduct-gcp-bigquery-transform"
+    gcp = {
+      project = "<gcp_project>"
+      region  = "<gcp_region>"
+    }
+    domain = "<data_product_domain>"
+    name = "<data_product_name>"
+    source_table = "<bigquery_source_table>"
+    transform = { 
+      query = "<sql_transformation_script>"
+    }
+}
+```
 
 ## Endpoint data
 
