@@ -18,9 +18,9 @@ module "bigquery_datenprodukt" {
     }
     domain = "<data_product_domain>"
     name = "<data_product_name>"
-    source_table = "<bigquery_source_table>"
-    transform = { 
-      query = "<sql_transformation_script>"
+    input = {
+      source_table = "<bigquery_source_table>"
+      transform = "<sql_transformation_script>"
     }
 }
 ```

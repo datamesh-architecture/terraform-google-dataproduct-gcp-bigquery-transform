@@ -13,7 +13,7 @@ resource "google_bigquery_table" "view-dataproduct" {
   dataset_id = google_bigquery_dataset.dataset.dataset_id
   table_id   = "view-dataproduct-${var.name}"
   view       {
-        query = file("${path.cwd}/${var.transform.query}")
+        query = file("${path.cwd}/${var.input.transform}")
         use_legacy_sql = false
   }
 }

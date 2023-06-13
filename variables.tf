@@ -17,14 +17,13 @@ variable "name" {
   description = "The name of the data product"
 }
 
-variable "source_table" {
-  type        = string
-  description = "The name of the source table"
-}
-
-variable "transform" {
+variable "input" {
   type = object({
-    query = string
+      source_table = string
+      transform = string
   })
-  description = "Path to a SQL file, which should be used to transform the input data"
+  description = <<EOT
+    source_table = The name of the BigQuery source table
+    transform = Path to a SQL file, which should be used to transform the input data
+  EOT
 }
