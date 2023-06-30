@@ -67,3 +67,19 @@ resource "google_cloudfunctions2_function" "function" {
     timeout_seconds    = 10
   }
 }
+
+data "google_iam_policy" "allow_invocations" {
+  binding {
+    role    = "roles/run.invoker"
+    members = var.output.discovery_access
+  }
+}
+
+# set iam policy of underlying cloud run service
+# use policy of cloud run service to support "allUsers" and "allAuthenticatedUsers" as members
+resource "google_cloud_run_service_iam_policy" "policy" {
+  project     = google_cloudfunctions2_function.function.project
+  location    = google_cloudfunctions2_function.function.location
+  service     = google_cloudfunctions2_function.function.service_config[0].service
+  policy_data = data.google_iam_policy.allow_invocations.policy_data
+}

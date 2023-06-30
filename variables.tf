@@ -27,3 +27,12 @@ variable "input" {
     transform = Path to a SQL file, which should be used to transform the input data
   EOT
 }
+
+variable "output" {
+  type = object({
+    discovery_access = list(string)
+  })
+  description = <<EOT
+discovery_access: List of users with access to the discovery endpoint
+EOT
+}
