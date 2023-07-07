@@ -20,7 +20,7 @@ variable "name" {
 variable "input" {
   type = object({
       source_table = string
-      transform = string
+      transform = optional(string, null)
   })
   description = <<EOT
     source_table = The name of the BigQuery source table
