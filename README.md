@@ -2,7 +2,7 @@
 
 This open source Terraform module provisions the necessary services to provide a data product on the Google Cloud Platform.
 
-![Overview](https://www.datamesh-architecture.com/images/google-cloud-bigquery.png)
+![Overview](https://www.datamesh-architecture.com/images/terraform-dataproduct-gcp-bigquery-transform.png)
 
 ## Services
 * Google BigQuery
