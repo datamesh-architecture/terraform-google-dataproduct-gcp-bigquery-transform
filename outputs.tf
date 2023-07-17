@@ -3,5 +3,7 @@ output "project" {
 }
 
 output "view" {
-  value = google_bigquery_table.view-dataproduct.table_id
+  value = [
+  for v in google_bigquery_table.view-dataproduct : v.table_id
+  ]
 }

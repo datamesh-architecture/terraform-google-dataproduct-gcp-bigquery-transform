@@ -1,17 +1,16 @@
 locals {
   info_in_directory    = "${path.module}/info"
   info_out_directory   = "${path.root}/out/info"
-  function_source_path = "${path.root}/out/archives/${var.domain}_${var.name}-info.zip"
-  table_links          = google_bigquery_table.view-dataproduct.self_link
+  function_source_path = "${path.root}/out/archives/${var.domain}_${var.domain}-info.zip"
+  table_views         = google_bigquery_table.view-dataproduct
 }
 
 resource "local_file" "info_lambda_index_js" {
   content = templatefile("${local.info_in_directory}/index.js.tftpl", {
     response_message = jsonencode({
       domain = var.domain
-      name   = var.name
       output = {
-        locations = local.table_links
+        locations = [for view in local.table_views : [view.table_id, view.self_link]]
       }
     })
   })
@@ -32,7 +31,7 @@ data "archive_file" "info_lambda_archive" {
 }
 
 resource "google_storage_bucket" "bucket" {
-  name                        = "${var.name}-info-gfc-source"
+  name                        = "${var.domain}-info-gfc-source"
   location                    = var.gcp.region
   uniform_bucket_level_access = true
 }
