@@ -45,12 +45,12 @@ resource "google_storage_bucket_object" "function_source" {
 }
 
 resource "google_cloudfunctions2_function" "function" {
-  name     = "info"
+  name     = "info-dataproducts-transform"
   location = var.gcp.region
 
   build_config {
     runtime     = "nodejs18"
-    entry_point = "info"
+    entry_point = "info-dataproducts-transform"
 
     source {
       storage_source {

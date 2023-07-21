@@ -1,5 +1,5 @@
 const functions = require('@google-cloud/functions-framework');
 
-functions.http('info', (req, res) => {
+functions.http('info-dataproducts-transform', (req, res) => {
   res.status(200).set('Content-Type', 'application/json').send('${response_message}');
 });
