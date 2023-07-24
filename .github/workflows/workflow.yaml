@@ -1,0 +1,13 @@
+name: Terraform Gitbub Actions
+
+on: [push]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: docker://hashicorp/terraform:0.12.11
+        with:
+          entrypoint: terraform
+          args: init
+      - run: terraform validate
