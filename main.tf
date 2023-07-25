@@ -6,7 +6,7 @@ provider "google" {
 locals {
   sql_in_directory    = "${path.module}/sql"
   sql_out_directory   = "${path.root}/out_sql"
-  sqlTransformInput = var.input.transform == null ? ["${local.sql_out_directory}/transform.sql"] : var.input.transform
+  sqlTransformInput = var.input.transform == null ? ["transform.sql"] : var.input.transform
 }
 
 resource "local_file" "transform_sql" {
@@ -28,7 +28,7 @@ resource "google_bigquery_table" "view-dataproduct" {
   dataset_id = google_bigquery_dataset.dataset.dataset_id
   table_id   = "view-dataproduct-${split(".", each.key)[0]}"
   view       {
-        query = file("${path.cwd}/${each.key}")
+        query = var.input.transform == null ? file("${local.sql_out_directory}/${each.key}") : file("${path.cwd}/${each.key}")
         use_legacy_sql = false
   }
 }
