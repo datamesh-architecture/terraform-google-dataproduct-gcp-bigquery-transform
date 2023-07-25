@@ -20,10 +20,11 @@ module "bigquery_datenprodukt" {
     name = "<data_product_name>"
     input = {
       source_table = "<bigquery_source_table>"
-      transform = "<sql_transformation_script>"
     }
 }
 ```
+
+Create a directory `sql` for *.sql.tftpl files which contains queries for creating BigQuery Views based on the `source_table`.
 
 ## Endpoint data
 

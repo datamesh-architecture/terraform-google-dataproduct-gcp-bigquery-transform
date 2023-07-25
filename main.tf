@@ -4,16 +4,19 @@ provider "google" {
 }
 
 locals {
-  sql_in_directory    = "${path.module}/sql"
+  sql_in_directory    = "${path.root}/sql"
   sql_out_directory   = "${path.root}/out_sql"
-  sqlTransformInput = var.input.transform == null ? ["transform.sql"] : var.input.transform
+  sqlTemplateInput    = fileset("${local.sql_in_directory}", "*.sql.tftpl")
+  sqlFiles            = fileset("${local.sql_out_directory}", "*.sql")
 }
 
 resource "local_file" "transform_sql" {
-  content = templatefile("${local.sql_in_directory}/transform.sql.tftpl", {
+  for_each = local.sqlTemplateInput
+
+  content = templatefile("${local.sql_in_directory}/${each.key}", {
       source_table = "${var.input.source_table}"
   })
-  filename = "${local.sql_out_directory}/transform.sql"
+  filename = "${local.sql_out_directory}/${split(".", each.key)[0]}.sql"
 }
 
 resource "google_bigquery_dataset" "dataset" {
@@ -23,12 +26,12 @@ resource "google_bigquery_dataset" "dataset" {
 }
 
 resource "google_bigquery_table" "view-dataproduct" {
-  for_each = local.sqlTransformInput
+  for_each = local.sqlFiles
 
   dataset_id = google_bigquery_dataset.dataset.dataset_id
   table_id   = "view-dataproduct-${split(".", each.key)[0]}"
   view       {
-        query = var.input.transform == null ? file("${local.sql_out_directory}/${each.key}") : file("${path.cwd}/${each.key}")
+        query = file("${local.sql_out_directory}/${each.key}")
         use_legacy_sql = false
   }
 }

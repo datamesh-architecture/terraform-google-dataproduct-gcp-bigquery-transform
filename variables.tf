@@ -15,7 +15,7 @@ variable "domain" {
 variable "input" {
   type = object({
       source_table = string
-      transform = optional(set(string), null)})
+  })
   description = <<EOT
     source_table = The name of the BigQuery source table
     transform = Path to a SQL file, which should be used to transform the input data
