@@ -9,8 +9,9 @@ resource "local_file" "info_lambda_index_js" {
   content = templatefile("${local.info_in_directory}/index.js.tftpl", {
     response_message = jsonencode({
       domain = var.domain
+      name = var.name
       output = {
-        locations = [for view in local.table_views : [view.table_id, view.self_link]]
+        locations = [for view in local.table_views : view.self_link]
       }
     })
   })
@@ -31,7 +32,7 @@ data "archive_file" "info_lambda_archive" {
 }
 
 resource "google_storage_bucket" "bucket" {
-  name                        = "${var.domain}-info-gfc-source"
+  name                        = "${var.name}-info-gfc-source"
   location                    = var.gcp.region
   uniform_bucket_level_access = true
 }

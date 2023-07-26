@@ -12,6 +12,11 @@ variable "domain" {
   description = "The domain of the data product"
 }
 
+variable "name" {
+  type        = string
+  description = "The name of the data product"
+}
+
 variable "input" {
   type = object({
       source_table = string
