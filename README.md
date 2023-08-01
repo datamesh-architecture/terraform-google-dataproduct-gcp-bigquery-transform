@@ -1,4 +1,4 @@
-# terraform-dataproduct-gcp-bigquery-transform
+# Data Mesh Terraform module "GCP BigQuery Transform"
 
 This open source Terraform module provisions the necessary services to provide a data product on the Google Cloud Platform.
 
