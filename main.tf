@@ -5,7 +5,7 @@ provider "google" {
 
 locals {
   sql_in_directory    = "${path.root}/sql"
-  sqlTemplateInput    = fileset("${local.sql_in_directory}", "*.sql.tftpl")
+  sqlTemplateInput    = fileset(local.sql_in_directory, "*.sql.tftpl")
 }
 
 data "local_file" "input_template" {
@@ -17,7 +17,7 @@ data "template_file" "transform_sql" {
   for_each = data.local_file.input_template
   template = each.value.content
   vars = {
-      source_table = "${var.input.source_table}"
+      source_table = var.input.source_table
   }
 }
 

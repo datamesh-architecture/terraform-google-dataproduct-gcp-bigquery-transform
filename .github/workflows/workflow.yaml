@@ -6,7 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: docker://hashicorp/terraform:1.3.5
+      - uses: terraform-linters/setup-tflint@v3
+        with:
+          tflint_version: latest
+      - run: tflint --version
+      - run: tflint -f compact
+      - uses: docker://hashicorp/terraform:1.5.5
         with:
           entrypoint: terraform
           args: init
