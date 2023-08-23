@@ -7,9 +7,9 @@ variable "gcp" {
   description = "GCP related information and credentials"
 }
 
-variable "domain" {
+variable "teamId" {
   type        = string
-  description = "The domain of the data product"
+  description = "The teamId of the development team"
 }
 
 variable "name" {

@@ -16,7 +16,7 @@ module "bigquery_datenprodukt" {
       project = "<gcp_project>"
       region  = "<gcp_region>"
     }
-    domain = "<data_product_domain>"
+    teamId = "<domain_team>"
     name = "<data_product_name>"
     input = {
       source_table = "<bigquery_source_table>"

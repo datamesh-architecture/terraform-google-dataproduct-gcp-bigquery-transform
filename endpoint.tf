@@ -1,16 +1,20 @@
 locals {
   info_in_directory    = "${path.module}/info"
   info_out_directory   = "${path.root}/out/info"
-  function_source_path = "${path.root}/out/archives/${var.domain}_${var.domain}-info.zip"
+  function_source_path = "${path.root}/out/archives/${var.teamId}_${var.name}-info.zip"
   table_views         = google_bigquery_table.view-dataproduct
 }
 
 resource "local_file" "info_lambda_index_js" {
   content = templatefile("${local.info_in_directory}/index.js.tftpl", {
     response_message = jsonencode({
-      domain = var.domain
-      name = var.name
-      output = {
+      info = {
+        name = var.name
+      }
+      owner = {
+        teamId = var.teamId
+      }
+      outputPorts = {
         locations = [for view in local.table_views : view.self_link]
       }
     })
