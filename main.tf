@@ -1,8 +1,3 @@
-provider "google" {
-  project = var.gcp.project
-  region  = var.gcp.region
-}
-
 locals {
   sql_in_directory  = "${path.root}/sql"
   sqlTemplateInput  = fileset(local.sql_in_directory, "*.sql.tftpl")
